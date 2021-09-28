@@ -130,3 +130,196 @@ Software especializado para hacer entornos virtuales e instalar dependencias de 
 
 Anaconda es un programa de Python que contiene los paquetes más utilizados en temas de ingeniería, matemáticas o ciencia, como pueden ser Matplotlib, SciPy y NumPy. Cuenta con versiones para los tres sistemas operativos más importantes: Mac, Windows y Linux.
 Y es un ambiente de trabajo para la ciencia de datos que permite hacer funcionar aplicaciones y administrar fácilmente distintos paquetes. Así, Anaconda Navigator puede buscar paquetes en Anaconda Cloud o en otros repositorios, y está disponible para ambientes Windows, macOS y Linux.
+
+[![9](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/9.png?raw=true "9")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/9.png?raw=true "9")
+
+# Alternativa a los ciclos: comprehensions
+
+## Listas y diccionarios anidados
+
+Iniciando con la creación de carpeta en la cual vamos a trabajar código:
+
+[![10](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/10.png?raw=true "10")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/10.png?raw=true "10")
+
+Se inicializa en Git, se crea entorno virtual:
+
+[![11](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/11.png?raw=true "11")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/11.png?raw=true "11")
+
+Para entrar a **VS Code** desde la consola:
+
+[![12](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/12.png?raw=true "12")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/12.png?raw=true "12")
+
+Buena práctica: Ignorar dentro de repositorio.
+
+[![13](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/13.png?raw=true "13")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/13.png?raw=true "13")
+
+Como ejemplo realizamos el siguiente ejercicio de .py con el fin de imprimir una lista y un diccionario anidados:
+
+```python
+def run():
+    my_list = [1, "Hello", True, 4.5]
+    my_dict = {"firstname": "Andrés", "lastname": "Garcia"}
+
+    super_list = [
+        {"firstname": "Andrés", "lastname": "Rozo"},
+        {"firstname": "Camilo", "lastname": "Vanegas"},
+        {"firstname": "Amaparo", "lastname": "Rozo"},
+        {"firstname": "Gloria", "lastname": "Vanegas"},
+        {"firstname": "Facundo", "lastname": "Garcia"},
+    ]
+
+    super_dict = {
+        "natural_nums": [1, 2, 3, 4, 5],
+        "integer_nums": [-1, -2, 0, 1, 2],
+        "floating_nums": [1.1, 2.2, 3.3, 4.4, 5.5]
+    }
+
+    print("super_list:")
+    for i in super_list:
+        for key, values in i.items():
+            print(key,": ", values);
+    
+    print("super_dicts:")
+    for key, value in super_dict.items():
+        print(key, "-", value)
+
+
+if __name__ == "__main__":
+    run()
+```
+
+Al ejecutarlo en la terminal se obtiene lo siguiente:
+
+[![14](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/14.png?raw=true "14")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/14.png?raw=true "14")
+
+## List comprehensions
+
+Es una construcción sintáctica disponible en Python con la que se pueden crear lista a partir de otros elementos iterables. Siendo una de las contracciones más elegantes del lenguaje.
+
+Para entender el concepto vamos a escribir los cuadrados de los números del 1 al 100 que no sean divisibles por el número 3:
+
+```python
+def run():
+     squares = []
+     for i in range(1, 101):
+         if i % 3 != 0:
+             squares.append(i**2)
+
+     print(squares)
+
+if __name__ == "__main__":
+    run()
+```
+
+[![15](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/15.png?raw=true "15")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/15.png?raw=true "15")
+
+Esto se puede realizar en tan solo una línea con la siguiente estructura:
+
+```python
+def run():
+    # squares = []
+    # for i in range(1, 101):
+    #     if i % 3 != 0:
+    #         squares.append(i**2)
+
+     squares = [i**2 for i in range(1, 101) if i % 3 != 0]
+
+    print(squares)
+
+if __name__ == "__main__":
+    run()
+```
+
+### Estructura de list comprehensions
+
+[![16](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/16.png?raw=true "16")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/16.png?raw=true "16") [![17](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/17.png?raw=true "17")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/17.png?raw=true "17")
+
+> - En mi nueva lista voy a guardar para cada elemento en el iterable ese elemento solo si se cumple la condición.
+> - En mi lista voy a guardar cada i en el rango de 1 a 101 cada i^2 solo si se cumple la condición de que no sea divisible por 3.
+
+### Reto
+
+Crear, con un list comprehension, una lista de todos los múltiplos de 4 que a su vez son múltiplos del 6 y del 9 hasta 5 digitos.
+
+```python
+def run():
+
+    challenge = [i for i in range(1, 100000) if i % 4 == 0 and i % 6 == 0 and i % 9 == 0]
+
+    print(challenge)
+
+if __name__ == "__main__":
+    run()
+```
+
+[![18](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/18.png?raw=true "18")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/18.png?raw=true "18")
+
+## Dictionary comprehensions
+
+Son una forma de almacenar elementos tal como lo haría en una lista de Python. Pero, en lugar de acceder a los elementos usando su índice, le asigna una clave fija y accede al elemento usando la clave. Lo que ahora trata es un par "clave-valor", que a veces es una estructura de datos más apropiada para muchos problemas en lugar de una simple lista.
+
+Para entender el concepto vamos a escribir diccionario con llaves de los números del 1 al 100, que como valores tengas los mismos números, pero elevados al cubo y con la condición de que no sean divisibles por el número 3:
+
+```python
+def run():
+     my_dict = {}
+
+     for i in range(1, 101):
+         if i % 3 != 0:
+             my_dict[i] = i**3
+
+if __name__ == "__main__":
+    run()
+```
+
+[![19](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/19.png?raw=true "19")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/19.png?raw=true "19")
+
+Esto se puede realizar en tan solo una línea con la siguiente estructura:
+
+```python
+def run():
+    # my_dict = {}
+
+    # for i in range(1, 101):
+    #     if i % 3 != 0:
+    #         my_dict[i] = i**3
+
+     my_dict = {i: i**3 for i in range(1, 101) if i % 3 != 0}
+
+     print(my_dict)
+
+if __name__ == "__main__":
+    run()
+```
+
+### Estructura de dict comprehensions
+
+[![20](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/20.png?raw=true "20")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/20.png?raw=true "20") [![21](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/21.png?raw=true "21")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/21.png?raw=true "21")
+
+> - En mi nuevo diccionario guardaré para cada elemento en el iterable voy a colocar una llave y un valor solo si se cumple la condición.
+> - En mi diccionario para cada i en el rango de 1 a 101 voy a guardar ese número como llave y el nùmero^2 solo si se cumple la condición de que no sea divisible por 3.
+
+### Reto
+
+Crear, con un dictionary comprehension, un diccionario cuyas llaves sean los 1000 primeros números naturales con sus raices cuadradas coo valor.
+
+```python
+def run():
+    # my_dict = {}
+
+    # for i in range(1, 101):
+    #     if i % 3 != 0:
+    #         my_dict[i] = i**3
+
+    # my_dict = {i: i**3 for i in range(1, 101) if i % 3 != 0}
+
+    challenge = { i: i**0.5 for i in range(1, 1001) }
+
+    print(challenge)
+
+
+if __name__ == "__main__":
+    run()
+```
+
+[![22](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/22.png?raw=true "22")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/22.png?raw=true "22")
