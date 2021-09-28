@@ -316,3 +316,159 @@ if __name__ == "__main__":
 ```
 
 [![22](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/22.png?raw=true "22")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/22.png?raw=true "22")
+
+# Conceptos avanzados de funciones
+
+## Funciones anónimas: lambda
+
+- Son funciones que no tienen un identificador (nombre), retornan un objeto de tipo función que guardaremos en una variable.
+- No necesitan la palabra clave return
+
+[![23](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/23.png?raw=true "23")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/23.png?raw=true "23")
+
+[![24](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/24.png?raw=true "24")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/24.png?raw=true "24")
+
+## Hight order functions (Funciones de orden superior): filter, map and reduce.
+
+- `filter` Recorre toda la lista para devolver uno o varios elementos de esta. Devuelve True or False según el valor esté dentro de los criterios buscados o no.
+
+ Pasar array a solo numeros impares.
+ 
+[![25](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/25.png?raw=true "25")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/25.png?raw=true "25")
+
+Usando función filter:
+
+[![26](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/26.png?raw=true "26")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/26.png?raw=true "26")
+
+- `map` Recorre toda la lista, la modifica y devuelve la misma lista, pero modificada. Sirve parar realizar una operación a todos los elementos de la lista uno a uno y devolver la lista con sus valores modificados.
+
+ Elevar al cuadrado los elementos del array.
+ 
+[![27](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/27.png?raw=true "27")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/27.png?raw=true "27")
+
+Usando función map:
+
+[![28](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/28.png?raw=true "28")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/28.png?raw=true "28")
+
+- `reduce` No devuelve una lista, devuelve un valor haciendo una operación con todos los elementos. Sirve para hacer acumulaciones de los elementos de una lista.
+
+ Multiplicar 2 x 2 x 2… hasta obtener 32.
+ 
+[![29](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/29.png?raw=true "29")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/29.png?raw=true "29")
+
+Usando la función reduce, la cual requiere que la importemos del módulo functools:
+
+[![30](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/30.png?raw=true "30")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/30.png?raw=true "30")
+
+reduce toma 2 valores entregados como parámetros y el iterador como otro parámetro. Realiza la función con estos 2 valores, y luego con el resultado de esto y el valor que le sigue en el array. Y así hasta pasar por todos los valores de la lista.
+
+## Proyecto: filtrando datos
+
+Teniendo como base un diccionario con los datos de nombre, edad, organización, cargo y lenguaje de algunas personas procederemos a la siguiente función:
+
+```python
+DATA = [ #al estar en mayusculas no es variable sino constante
+    {
+        'name': 'Facundo',
+        'age': 72,
+        'organization': 'Platzi',
+        'position': 'Technical Coach',
+        'language': 'python',
+    },
+    {
+        'name': 'Luisana',
+        'age': 33,
+        'organization': 'Globant',
+        'position': 'UX Designer',
+        'language': 'javascript',
+    },
+.
+.
+.
+```
+
+Se utiliza list comprehension para extraer nombre de desarrolladores de Python en DATA:
+
+```python
+def run():
+    all_python_devs = [worker["name"] for worker in DATA if worker["language"] == "python"]
+
+    for worker in all_python_devs:
+        print(worker)  
+
+if __name__ == "__main__":
+    run()
+```
+[![31](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/31.png?raw=true "31")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/31.png?raw=true "31")
+
+Ahora lo utilizamos para extraer el nombre de las personas que trabajan en Platzi:
+```python
+def run():
+    all_python_devs = [worker["name"] for worker in DATA if worker["language"] == "python"]
+    all_Platzi_workers = [worker["name"] for worker in DATA if worker["organization"] == "Platzi"]
+
+    for worker in all_Platzi_workers:
+        print(worker)  
+
+if __name__ == "__main__":
+    run()
+```
+[![32](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/32.png?raw=true "32")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/32.png?raw=true "32")
+
+Se practica combinaciones de filter y map para extraer el nombre de los que son adultos de DATA:
+```python
+def run():
+    all_python_devs = [worker["name"] for worker in DATA if worker["language"] == "python"]
+    all_Platzi_workers = [worker["name"] for worker in DATA if worker["organization"] == "Platzi"]
+    adults = list(filter(lambda worker: worker["age"] > 18, DATA))
+    adults = list(map(lambda worker: worker["name"], adults))
+
+    for worker in adults:
+        print(worker)
+
+if __name__ == "__main__":
+    run()
+```
+[![33](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/33.png?raw=true "33")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/33.png?raw=true "33")
+
+Como último paso se utilizan la suma de diccionario nuevo con el símbolo **|** para diccionarios y **+**, donde para cada uno de los trabajadores dentro de DATA para cada diccionario voy a guardar ese mismo diccionario, pero sumado a otro que contiene la llave **"old"** con la función de evaluar la expresión **"age"** > 70. Si es correcto guarda True de lo contrario False.
+
+```python
+def run():
+    all_python_devs = [worker["name"] for worker in DATA if worker["language"] == "python"]
+    all_Platzi_workers = [worker["name"] for worker in DATA if worker["organization"] == "Platzi"]
+    adults = list(filter(lambda worker: worker["age"] > 18, DATA))
+    adults = list(map(lambda worker: worker["name"], adults))
+    old_people = list(map(lambda worker: worker | {"old": worker["age"] > 70}, DATA))
+
+    for worker in old_people:
+        print(worker)  
+
+if __name__ == "__main__":
+    run()
+```
+[![34](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/34.png?raw=true "34")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/34.png?raw=true "34")
+
+### Reto 
+
+- Crear las listas *all_python_devs*  y *all_Platzi_workers* usando una combinación de **filter** y** map**.
+- Crear una lista *old_people* y *adults* con **list comprehensions**.
+
+```python
+def main():
+    all_python_devs = list(filter(lambda worker: worker["language"] == "python", DATA))
+    all_python_devs = list(map(lambda worker: worker["name"], all_python_devs))
+    all_platzi_workers = list(filter(lambda worker: worker["organization"] == 'Platzi', DATA))
+    all_platzi_workers = list(map(lambda worker: worker["name"], all_platzi_workers))
+	adults = list(filter(lambda worker: worker["age"] >= 18, DATA))
+	adults = list(map(lambda worker: worker["name"], adults))
+	old_people = list(map(lambda worker: worker | {"old": worker["age"] > 70}, DATA))
+
+    for worker in old_people:
+        print(worker)
+
+
+if __name__ == "__main__":
+    main()
+```
+
