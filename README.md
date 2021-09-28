@@ -460,9 +460,9 @@ def main():
     all_python_devs = list(map(lambda worker: worker["name"], all_python_devs))
     all_platzi_workers = list(filter(lambda worker: worker["organization"] == 'Platzi', DATA))
     all_platzi_workers = list(map(lambda worker: worker["name"], all_platzi_workers))
-	adults = list(filter(lambda worker: worker["age"] >= 18, DATA))
-	adults = list(map(lambda worker: worker["name"], adults))
-	old_people = list(map(lambda worker: worker | {"old": worker["age"] > 70}, DATA))
+    adults = list(filter(lambda worker: worker["age"] >= 18, DATA))
+    adults = list(map(lambda worker: worker["name"], adults))
+    old_people = list(map(lambda worker: worker | {"old": worker["age"] > 70}, DATA))
 
     for worker in old_people:
         print(worker)
@@ -472,3 +472,196 @@ if __name__ == "__main__":
     main()
 ```
 
+# Manejo de errores
+
+## Los errores en el código
+
+Cuando Python nos avisa que tenemos un error en el código nos avienta un mensaje que conocemos como **traceback**, puede ser debido a:
+
+- **Errores de Sintaxis (SyntaxError)** → escribimos mal alguna palabra clave (typo), el programa no se ejecuta.
+- **Excepciones (Exeption)** → Producen un colapso o interrupción de la lógica del programa en alguna línea en específico por ejemplo (todas las líneas anteriores se ejecutan), pueden ser de varios tipos, generalmente aparecen cuando no existe un componente clave en la ejecución o hay alguna imposibilidad lógica (matemática) para efectuar la instrucción, también pueden generarse dentro del código o fuera del (elevar una excepción).
+
+[![35](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/35.png?raw=true "35")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/35.png?raw=true "35")
+
+- **Keyboard Interrupt:** Ocurre cuando pulsamos Ctrl + C en la consola interactiva de Python y esto detiene el flujo de ejecución del programa.
+- **KeyError:** Cuando intentamos acceder a una llave (key) que no existe en un diccionario.
+- **IndexError:** Causada cuando estamos trabajando con listas e intentamos acceder a un index (índice) de esa lista que no existe.
+- **FileNotFoundError:** Se origina al intentar abrir un archivo que no existe.
+- **ZeroDivisionError:** Se genera este error cuando intentamos dividir un número entre cero.
+- **ImportError:** cuando queremos importar un módulo y hay algún error en ese módulo.
+ Obtenemos información del error a través del traceback. Lo correcto es leer desde el final hasta el principio.
+
+Ejemplo del tipo de información que arroja el traceback.
+
+- **Lectura de un Traceback:** La manera correcta de leer un traceback es iniciar por el final, en el caso de un error de sintaxis nos indicará en qué línea se encuentra dicho error.
+En el caso de excepciones la última línea nos indicará el tipo de excepción que se generó (generalmente son auto explicativas, pero si no entiendes que paso puedes buscar este error)
+La penúltima línea nos indicará donde se encuentra el error (archivo y línea)
+La antepenúltima línea nos muestra “most recent call last” lo que significa que la llamada más reciente es la última (el programa se cerró después de esa llamada, se generó un error)
+
+- **Elevar una excepción:** Cuando tenemos una excepción en Python lo que sucede es que se crea un objeto de tipo exception que se va moviendo a través de los bloques de código hasta llegar al bloque principal si es que no se maneja dicha excepción en algún bloque intermedio el programa se interrumpe y genera el traceback.
+
+Estos son los errores y excepciones de la documentación oficial de Python:
+[https://docs.python.org/es/3/tutorial/errors.html](https://docs.python.org/es/3/tutorial/errors.html "https://docs.python.org/es/3/tutorial/errors.html")
+
+## Debugging / Depuración
+
+Es una herramienta que traen varios editores de código con el objetivo de solucionar nuestros errores de lógica, revisemos la herramienta debugging de VS Code. Para esto se crea el siguiente código con el fin de imprimir los divisores del número que se le pide al usuario:
+
+```python
+def divisors(num):
+    divisors = []
+    for i in range(1, num + 1):
+        if num % i == 1:
+            divisors.append(i)
+    return divisors
+
+def run():
+    num = int(input("Ingresa un número: "))
+    print(divisors(num))
+    print("Terminó mi programa")
+
+
+if __name__ == "__main__":
+    run()
+```
+
+Como se observa al ejecutar imprime números errados que no sirven:
+
+[![36](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/36.png?raw=true "36")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/36.png?raw=true "36")
+
+Para realizar el debugging en el editor seleccionamos opción **Run and Debug** y selecciona en la lista desplegable **Python File**:
+
+[![37](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/37.png?raw=true "37")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/37.png?raw=true "37")
+
+[![38](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/38.png?raw=true "38")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/38.png?raw=true "38")
+
+En este entorno podemos acceder a funcionalidades como:
+
+- **pause** → permite pausar la ejecución del programa
+- **step over** → permite avanzar un solo paso en el programa
+- **step in** → ingresamos a un bloque secundario del programa (funciones)
+- **step out** → salimos del bloque secundario
+- **restart** → reinicia el programa
+- **stop** → detiene el programa
+
+Se abre terminal donde permite ejecutar nuestro código, pero antes de escribir el número se pausa la secuencia, esto permitirá revisar paso por paso cada línea al ejecutarse dando **step over**:
+
+[![39](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/39.png?raw=true "39")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/39.png?raw=true "39")
+
+A medida que avanzamos en cada línea aparece la información de las variables involucradas y sus valores actuales:
+
+[![40](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/40.png?raw=true "40")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/40.png?raw=true "40")
+
+Estos pasos nos facilita la tarea de buscar el error que no nos informa Python, en este caso es que en la condición if, el residuo debe ser igual a cero para poder encontrar los números divisores.
+
+Además, podemos generar **breakpoints** que son los puntos rojos en los que el programa se detendrá para ayudarnos a depurar el código, están ubicados a la izquierda de la numeración de cada línea de código:
+
+[![41](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/41.png?raw=true "41")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/41.png?raw=true "41")
+
+[![42](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/42.png?raw=true "42")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/42.png?raw=true "42")
+
+## Manejo de excepciones
+
+- **try except** → Anidamos nuestro programa en dos bloques de código, el primero es el programa per se (el que se ejecuta normalmente, sin errores) y el segundo representa las instrucciones a seguir en caso de error.
+
+[![43](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/43.png?raw=true "43")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/43.png?raw=true "43")
+
+- **raise** → Esta instrucción nos permite generar errores, es decir crear nuestros propios errores cuando detectemos que nuestro programa no actúa como debería con cierto tipo de datos.
+
+[![44](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/44.png?raw=true "44")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/44.png?raw=true "44")
+
+- **finally **→ Es un bloque de código que se ejecuta exista un error o no (un tercer bloque después de try except), no es muy usual, pero puede darse para cerrar archivos, conexiones a BBDD o liberar recursos.
+
+[![45](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/45.png?raw=true "45")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/45.png?raw=true "45") [![46](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/46.png?raw=true "46")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/46.png?raw=true "46")
+
+## Poniendo a prueba el manejo de excepciones
+
+Vamos a probar las excepciones con nuestro archivo **debugging.py**, probando si acepta un string pero nos muestra el siguiente **Traceback**:
+
+[![47](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/47.png?raw=true "47")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/47.png?raw=true "47")
+
+Se agregan los comandos **try** y **except** como se muestra en la imagen, para cuando se introduzcan strings se va devolver mensaje **"Debes ingresar un número":**
+
+```python
+def divisors(num):
+    divisors = []
+    for i in range(1, num + 1):
+        if num % i == 1:
+            divisors.append(i)
+    return divisors
+
+def run():
+    try:
+        num = int(input("Ingresa un número: "))
+        print(divisors(num))
+        print("Terminó mi programa")
+    except ValueError:
+        print("Debes ingresar un número")
+
+if __name__ == "__main__":
+    run()
+```
+
+[![48](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/48.png?raw=true "48")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/48.png?raw=true "48")
+
+### Reto
+
+Utiliza las palabras clave **try, except** y **raise** para elevar un error si el usuario ingresa un npumero negativo en nuestro programa de divisores.
+
+```python
+def divisors(num):
+    divisors = lambda num: [i for i in range(1, num + 1) if num % i == 0]
+
+    while True:
+        try:
+            num = int(input("Ingresa un número: "))
+            if num < 0:
+                raise Exception("Debes ingresar un número positivo")
+            print(divisors(num))
+            print("Terminó mi programa")
+            break
+        except ValueError:
+            print("Debes ingresar un número")
+        except Exception:
+            print("Debes ingresar un número positivo")
+
+if __name__ == "__main__":
+    run()
+```
+
+[![49](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/49.png?raw=true "49")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/49.png?raw=true "49")
+
+## Assert statements
+
+Es otra alternativa para el manejo de las excepciones en nuestro código.
+
+> Afirmo que esta condición es cierta, de lo contrario, manda este mensaje de error.
+
+[![50](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/50.png?raw=true "50")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/50.png?raw=true "50")
+
+[![51](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/51.png?raw=true "51")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/51.png?raw=true "51")
+
+Este es el orden en que se utilizaría el comando assert.
+
+[![52](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/52.png?raw=true "52")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/52.png?raw=true "52")
+
+[![53](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/53.png?raw=true "53")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/53.png?raw=true "53")
+
+Como ejemplo se utiliza el código anterior, pero con el nuevo comando:	
+
+```python
+def divisors(num):
+    divisors = lambda num: [i for i in range(1, num + 1) if num % i == 0]
+
+        num = int(input("Ingresa un número: ")))
+        assert num.isnumeric() and int(num) > 0, "Debes ingresar un número positivo"
+        print(divisors(int(num)))
+        print("Terminó mi programa")
+
+if __name__ == "__main__":
+    run()
+```
+
+Nos devuelve un mensaje **AssertionError** junto con todo un Traceback con los errores presentes:
+
+[![54](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/54.png?raw=true "54")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/54.png?raw=true "54")
