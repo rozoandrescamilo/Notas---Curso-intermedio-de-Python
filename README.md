@@ -665,3 +665,156 @@ if __name__ == "__main__":
 Nos devuelve un mensaje **AssertionError** junto con todo un Traceback con los errores presentes:
 
 [![54](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/54.png?raw=true "54")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/54.png?raw=true "54")
+
+# Manejo de archivos
+
+## ¿Cómo trabajar con archivos?
+
+En los diferentes lenguajes de programación podremos trabajar con los archivos de texto (De color gris), pero es más complicado trabajar con los archivos binarios ya que trabajan con imágenes, videos, … (Color verde).
+
+[![55](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/55.png?raw=true "55")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/55.png?raw=true "55")
+
+Existen varias extensiones de archivos con los que podemos interactuar con python (js,csv,py,css,json,xml).
+
+Para abrir un archivo seguimos la siguiente estructura:
+
+`with open(<ruta>, <modo_apertura>) as <nombre>`
+
+[![56](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/56.png?raw=true "56")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/56.png?raw=true "56")
+
+- **with** Es un manejador contextual, nos ayuda a controlar el flujo del archivo (sirve para que el archivo no se dañe cuando existe algún cierre inesperado)
+- **open(ruta, modo_apertura)** Es una función que necesita de dos parámetros
+- **ruta** Es donde se encuentra nuestro archivo en nuestro equipo
+- **modo_de_apertura** Como vamos a abrir el archivo, los modificadores son:
+ **r** → modo de lectura
+ **w** → modo de escritura (sobreescribe el archivo)
+ **a** → modo append (añade información al final del archivo)
+- **as (nombre)** Nos ayuda a darle una abreviatura o un nombre a los datos que acabamos de leer
+
+## Trabajando con archivos de texto en Python
+
+Creamos archivo .py con el siguiente código que cuenta dos funciones: una para leer y otra para escribir. Para ejecutar la función de leer utilizamos la línea aprendida para manejar archivos teniendo en cuenta que primero se creó archivo **numbers.txt** con números los cuales vamos a leer e imprimir:
+
+`encoding = "utf-8"` Sirve para que Python pueda soportar caracteres del idioma español, como la **ñ** y letras con tilde.
+
+```python
+def read():
+    numbers = []
+    with open("./archivos/numbers.txt", "r", encoding="utf-8") as f: 
+        for line in f:
+            numbers.append(int(line))
+    print(numbers)
+
+def write():
+    names = ["Fausto", "Miguel", "Pepe", "Chirstian", "Rocio"]
+    with open("./archivos/names.txt", "w", encoding="utf-8") as f:
+        for name in names: 
+            f.write(name)
+            f.write("\n") #Salto de línea en Python
+
+def run():
+    read-()
+
+if __name__ == "__main__":
+    run()
+```
+
+[![57](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/57.png?raw=true "57")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/57.png?raw=true "57")
+
+[![58](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/58.png?raw=true "58")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/58.png?raw=true "58")
+
+Para la función de escribir se hace lista con diferentes nombres y queremos que se cree un nuevo archivo **names.txt** con los nombres escritos con saltos de línea, para esto establecemos el **modo de apertura “w"** para escribir o sobre escribir:
+
+```python
+def read():
+    numbers = []
+    with open("./archivos/numbers.txt", "r", encoding="utf-8") as f: 
+        for line in f:
+            numbers.append(int(line))
+    print(numbers)
+
+def write():
+    names = ["Facundo", "Miguel", "Pepe", "Chirstian", "Rocio"]
+    with open("./archivos/names.txt", "w", encoding="utf-8") as f:
+        for name in names: 
+            f.write(name)
+            f.write("\n") #Salto de línea en Python
+
+def run():
+    write()
+
+if __name__ == "__main__":
+    run()
+```
+
+[![59](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/59.png?raw=true "59")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/59.png?raw=true "59")
+
+Si queremos añadir información al final del archivo utilizamos el **modo append “a":**
+
+```python
+def read():
+    numbers = []
+    with open("./archivos/numbers.txt", "r", encoding="utf-8") as f: 
+        for line in f:
+            numbers.append(int(line))
+    print(numbers)
+
+def write():
+    names = ["Andrés", "José", "Luis", "Sofia", "Catalina"]
+    with open("./archivos/names.txt", "a", encoding="utf-8") as f:
+        for name in names: 
+            f.write(name)
+            f.write("\n") #Salto de línea en Python
+
+def run():
+    write()
+
+if __name__ == "__main__":
+    run()
+```
+
+[![60](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/60.png?raw=true "60")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/60.png?raw=true "60")
+
+## Reto final: Juego del Ahorcado o Hangman Game
+
+**Ayudas y pistas**
+
+- Investiga la función **enumerate.**
+- El método **get** de los diccionarios puede servirte.
+- La sentencia
+
+   `os.system("cls")` -> Windows
+   
+   `os.system("clear")`  -> Unix
+   
+  te servirá para limpiar la pantalla.
+
+**Mejora el juego**
+
+- Añade un sistema de puntos.
+- Dibuja al "ahoracado" en cada jugada con **código ASCII.**
+- Mejora la interfaz.
+
+Debido al tamaño del código no se escribe acá, pero se puede encontrar el código del reto Hangman Game en mi repositorio Git Hub:
+
+[https://github.com/hackmilo/HangmanGame-JuegoAhorcado.git](https://github.com/hackmilo/HangmanGame-JuegoAhorcado.git "https://github.com/hackmilo/HangmanGame-JuegoAhorcado.git")
+
+Como muestra del resultado podemos ver algunas de las pantallas en diferentes situaciones del juego:
+
+Menú de inicio:
+
+[![61](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/61.png?raw=true "61")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/61.png?raw=true "61")
+
+Hangman Game:
+
+[![62](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/62.png?raw=true "62")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/62.png?raw=true "62")
+
+Ganador interfaz:
+
+[![63](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/63.png?raw=true "63")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/63.png?raw=true "63")
+
+Perdedor interfaz:
+
+[![64](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/64.png?raw=true "64")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/64.png?raw=true "64")
+
+
