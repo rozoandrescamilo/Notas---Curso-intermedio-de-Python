@@ -632,7 +632,7 @@ if __name__ == "__main__":
 Utiliza las palabras clave **try, except** y **raise** para elevar un error si el usuario ingresa un npumero negativo en nuestro programa de divisores.
 
 ```python
-def divisors(num):
+def run(num):
     divisors = lambda num: [i for i in range(1, num + 1) if num % i == 0]
 
     while True:
