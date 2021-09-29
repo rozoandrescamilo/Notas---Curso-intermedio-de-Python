@@ -3,14 +3,37 @@ Profesor Facundo Garcia Martoni de Platzi.
 
 ![](https://static.platzi.com/media/avatars/Platzi-f730e65b-e92b-44d3-81c0-5c59c4dc4658.png) ![](https://static.platzi.com/media/learningpath/badges/46.png) ![](https://static.platzi.com/media/achievements/badge-intermedio-de-python-d0d16518-5edd-450a-b2a9-0710bded1494.png)
 
-
 ## Tabla de Contenidos
 
 - [Introducción](#introducción)
-  - [¿Por qué Python?](#por-qué-python)
-  - [¿Que es un algoritmo?](#que-es-un-algoritmo)
+  - [Zen de Python](#zen-de-python)
+  - [Documentación](#documentación)
+- [Entorno virtual](#entorno-virtual)
+  - [Creando un ambiente virtual con VENV](#creando-un-ambiente-virtual-con-venv)
+  - [Instalación de dependencias con pip](#instalación-de-dependencias-con-pip)
+  - [Anaconda: alternativa gráfica](#anaconda-alternativa-gráfica)
+- [Alternativa a los ciclos: comprehensions](#alternativa-a-los-ciclos-comprehensions)
+  - [Listas y diccionarios anidados](#listas-y-diccionarios-anidados)
+  - [List comprehensions](#list-comprehensions)
+  - [Dictionary comprehensions](#dictionary-comprehensions)
+- [Conceptos avanzados de funciones](#conceptos-avanzados-de-funciones)
+  - [Funciones anónimas: lambda](#funciones-anónimas-lambda)
+  - [Hight order functions (Funciones de orden superior): filter, map and reduce](#hight-order-functions-funciones-de-orden-superior-filter-map-and-reduce)
+  - [Proyecto: filtrando datos](#proyecto-filtrando-datos)
+- [Manejo de errores ](#manejo-de-errores )
+  - [Los errores en el código](#los-errores-en-el-código)
+  - [Debugging ó Depuración](#debugging-ó-depuración)
+  - [Manejo de excepciones](#manejo-de-excepciones)
+  - [Poniendo a prueba el manejo de excepciones](#poniendo-a-prueba-el-manejo-de-excepciones)
+  - [Assert statements](#assert-statements)
+- [Manejo de archivos](#manejo-de-archivos)
+  - [¿Cómo trabajar con archivos?](#cómo-trabajar-con-archivos)
+  - [Trabajando con archivos de texto en Python](#trabajando-con-archivos-de-texto-en-python)
+  - [Reto final: Juego del Ahorcado o Hangman Game](#reto-final-juego-del-ahorcado-o-hangman-game)
 
 # Introducción
+
+## Zen de Python
 
 [![1](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/1.png?raw=true "1")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/1.png?raw=true "1")
 
@@ -328,7 +351,7 @@ if __name__ == "__main__":
 
 [![24](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/24.png?raw=true "24")](https://github.com/hackmilo/Notas---Curso-intermedio-de-Python/blob/main/img/24.png?raw=true "24")
 
-## Hight order functions (Funciones de orden superior): filter, map and reduce.
+## Hight order functions (Funciones de orden superior): filter, map and reduce
 
 - `filter` Recorre toda la lista para devolver uno o varios elementos de esta. Devuelve True or False según el valor esté dentro de los criterios buscados o no.
 
@@ -503,7 +526,7 @@ La antepenúltima línea nos muestra “most recent call last” lo que signific
 Estos son los errores y excepciones de la documentación oficial de Python:
 [https://docs.python.org/es/3/tutorial/errors.html](https://docs.python.org/es/3/tutorial/errors.html "https://docs.python.org/es/3/tutorial/errors.html")
 
-## Debugging / Depuración
+## Debugging ó Depuración
 
 Es una herramienta que traen varios editores de código con el objetivo de solucionar nuestros errores de lógica, revisemos la herramienta debugging de VS Code. Para esto se crea el siguiente código con el fin de imprimir los divisores del número que se le pide al usuario:
 
