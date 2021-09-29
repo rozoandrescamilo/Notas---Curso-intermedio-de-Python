@@ -673,7 +673,7 @@ Este es el orden en que se utilizaría el comando assert.
 Como ejemplo se utiliza el código anterior, pero con el nuevo comando:	
 
 ```python
-def divisors(num):
+def run(num):
     divisors = lambda num: [i for i in range(1, num + 1) if num % i == 0]
 
         num = int(input("Ingresa un número: ")))
